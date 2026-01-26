@@ -1,5 +1,5 @@
 // Brute Force TC: O(n) SC: O(n)
-classclass Solution {
+class Solution {
     public int missingNumber(int[] nums) {
         // 3 0 1
         HashSet<Integer> hs=new HashSet<>();
