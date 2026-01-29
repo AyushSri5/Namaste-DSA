@@ -44,3 +44,55 @@ public class Solution {
         return null;
     }
 }
+// Optimised approach 2 TC: O(n) SC: O(1)
+class Solution {
+    public ListNode getIntersectionNode(ListNode headA, ListNode headB) {
+
+        int n = 0;
+        int m = 0;
+
+        ListNode ptr1 = headA;
+        ListNode ptr2 = headB;
+
+        // Count length of List A
+        while (ptr1 != null) {
+            n++;
+            ptr1 = ptr1.next;
+        }
+
+        // Count length of List B
+        while (ptr2 != null) {
+            m++;
+            ptr2 = ptr2.next;
+        }
+
+        int t = Math.abs(n - m);
+
+        // Move longer list pointer ahead by difference
+        if (n > m) {
+            while (t > 0) {
+                headA = headA.next;
+                t--;
+            }
+        } else {
+            while (t > 0) {
+                headB = headB.next;
+                t--;
+            }
+        }
+
+        // Traverse both lists together
+        while (headA != null && headB != null) {
+
+            if (headA == headB) {
+                return headA;
+            }
+
+            headA = headA.next;
+            headB = headB.next;
+        }
+
+        return null;
+    }
+}
+
