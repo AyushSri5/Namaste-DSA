@@ -1,22 +1,29 @@
 // Optimised approach TC: O(n*m) SC: O(n*m)
 class Solution {
-    public int[] nextGreaterElements(int[] nums2) {
-        Stack<Integer> st=new Stack<>();
-        int ans[]=new int[nums2.length];
-        Arrays.fill(ans,-1);
-        for(int i=0;i<2*nums2.length;i++){
-            int index=i%nums2.length;
-            if(st.isEmpty() || nums2[st.peek()]>nums2[index]){
-                st.push(index);
+    public List<List<String>> groupAnagrams(String[] strs) {
+        HashMap<String, List<String>> map = new HashMap<>();
+
+        for (int i = 0; i < strs.length; i++) {
+            String s = strs[i];
+
+            int[] freq = new int[26];
+            for (int j = 0; j < s.length(); j++) {
+                freq[s.charAt(j) - 'a']++;
             }
-            else{
-                while(!st.isEmpty() && nums2[st.peek()]<nums2[index]){
-                    ans[st.peek()]=nums2[index];
-                    st.pop();
-                }
-                st.push(index);
+
+            // Build pattern using StringBuilder with separator
+            StringBuilder pattern = new StringBuilder();
+            for (int j = 0; j < 26; j++) {
+                pattern.append(freq[j]).append('#');
             }
+
+            String key = pattern.toString();
+
+            // Insert into map
+            map.computeIfAbsent(key, k -> new ArrayList<>()).add(s);
         }
-        return ans;
+
+        // Build final answer
+        return new ArrayList<>(map.values());
     }
 }
